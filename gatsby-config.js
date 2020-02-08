@@ -1,4 +1,5 @@
 const path = require(`path`)
+const dotenv = require(`dotenv`)
 
 const config = require(`./src/utils/siteConfig`)
 const generateRSSFeed = require(`./src/utils/rss/generate-feed`)
@@ -20,6 +21,8 @@ try {
     if (!apiUrl || !contentApiKey || contentApiKey.match(/<key>/)) {
         throw new Error(`GHOST_API_URL and GHOST_CONTENT_API_KEY are required to build. Check the README.`) // eslint-disable-line
     }
+
+    dotenv.config()
 }
 
 /**
@@ -34,6 +37,13 @@ module.exports = {
         siteUrl: config.siteUrl,
     },
     plugins: [
+        {
+            resolve: `gatsby-source-contentful`,
+            options: {
+                spaceId: process.env.CONTENTFUL_SPACE_ID,
+                accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+            }
+        },
         /**
          *  Content Plugins
          */
