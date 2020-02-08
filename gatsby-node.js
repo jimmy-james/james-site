@@ -44,6 +44,20 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                 }
             }
+            allContentfulPost {
+                edges {
+                    node {
+                        childContentfulPostContentRichTextNode {
+                            json
+                        }
+                        title
+                        slug
+                        primary_author {
+                            name
+                        }
+                    }
+                }
+            }
         }
     `)
 
@@ -56,7 +70,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const tags = result.data.allGhostTag.edges
     const authors = result.data.allGhostAuthor.edges
     const pages = result.data.allGhostPage.edges
-    const posts = result.data.allGhostPost.edges
+    const posts = result.data.allContentfulPost.edges
 
     // Load templates
     const indexTemplate = path.resolve(`./src/templates/index.js`)
@@ -173,7 +187,7 @@ exports.createPages = async ({ graphql, actions }) => {
         // This part here defines, that our posts will use
         // a `/:slug/` permalink.
         node.url = `/${node.slug}/`
-
+console.log(node)
         createPage({
             path: node.url,
             component: postTemplate,
