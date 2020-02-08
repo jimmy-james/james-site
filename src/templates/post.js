@@ -29,10 +29,12 @@ const Post = ({ data, location }) => {
             <Layout>
                 <div className="container">
                     <article className="content">
-            
+                        <figure className="post-feature-image">
+                            <img src={ post.featureImage.file.url } alt={ post.title } />
+                        </figure>
                         <section className="post-full-content">
                             <h1 className="content-title">{post.title}</h1>
-
+                            <span>{ post.primaryAuthor.name }</span>
                             {/* The main post content */ }
                             <section className="content-body load-external-scripts">
                                 {documentToReactComponent(post.childContentfulPostContentRichTextNode.json)}
@@ -47,11 +49,10 @@ const Post = ({ data, location }) => {
 
 Post.propTypes = {
     data: PropTypes.shape({
-        ghostPost: PropTypes.shape({
-            codeinjection_styles: PropTypes.object,
+        contentfulPost: PropTypes.shape({
             title: PropTypes.string.isRequired,
-            html: PropTypes.string.isRequired,
-            feature_image: PropTypes.string,
+            featureImage: PropTypes.object,
+            primaryAuthor: PropTypes.object,
         }),
     }),
     location: PropTypes.object.isRequired,
@@ -63,6 +64,14 @@ export const postQuery = graphql`
     query($slug: String!) {
         contentfulPost(slug: { eq: $slug }) {
             title
+            primaryAuthor {
+                name
+            }
+            featureImage {
+                file {
+                    url
+                }
+            }
             childContentfulPostContentRichTextNode {
                 json
             }

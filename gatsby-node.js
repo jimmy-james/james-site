@@ -52,7 +52,12 @@ exports.createPages = async ({ graphql, actions }) => {
                         }
                         title
                         slug
-                        primary_author {
+                        featureImage {
+                            file {
+                                url
+                            }
+                        }
+                        primaryAuthor {
                             name
                         }
                     }
@@ -187,7 +192,7 @@ exports.createPages = async ({ graphql, actions }) => {
         // This part here defines, that our posts will use
         // a `/:slug/` permalink.
         node.url = `/${node.slug}/`
-console.log(node)
+
         createPage({
             path: node.url,
             component: postTemplate,
@@ -198,7 +203,7 @@ console.log(node)
             },
         })
     })
-
+console.log("POSTS  ", posts)
     // Create pagination
     paginate({
         createPage,
