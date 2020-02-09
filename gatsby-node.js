@@ -44,10 +44,10 @@ exports.createPages = async ({ graphql, actions }) => {
                     }
                 }
             }
-            allContentfulPost {
+            allContentfulPosts {
                 edges {
                     node {
-                        childContentfulPostContentRichTextNode {
+                        childContentfulPostsContentRichTextNode {
                             json
                         }
                         title
@@ -59,6 +59,24 @@ exports.createPages = async ({ graphql, actions }) => {
                         }
                         primaryAuthor {
                             name
+                        }
+                    }
+                }
+            }
+            allContentfulSettings {
+                edges {
+                    node {
+                        title
+                        description
+                        url
+                        logo {
+                            file {
+                                url
+                            }
+                        }
+                        navigation {
+                            url
+                            label
                         }
                     }
                 }
@@ -75,7 +93,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const tags = result.data.allGhostTag.edges
     const authors = result.data.allGhostAuthor.edges
     const pages = result.data.allGhostPage.edges
-    const posts = result.data.allContentfulPost.edges
+    const posts = result.data.allContentfulPosts.edges
 
     // Load templates
     const indexTemplate = path.resolve(`./src/templates/index.js`)

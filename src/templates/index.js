@@ -14,7 +14,7 @@ import { MetaData } from '../components/common/meta'
 *
 */
 const Index = ({ data, location, pageContext }) => {
-    const posts = data.allContentfulPost.edges
+    const posts = data.allContentfulPosts.edges
 
     return (
         <>
@@ -48,7 +48,7 @@ export default Index
 
 export const postQuery = graphql `
     query {
-        allContentfulPost {
+        allContentfulPosts {
             edges {
                 node {
                     title

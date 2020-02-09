@@ -19,7 +19,7 @@ import '../../styles/app.css'
 *
 */
 const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
-    const site = data.allGhostSettings.edges[0].node
+    const site = data.allContentfulSettings.edges[0].node
     const linkedInUrl = config.linkedIn
     const githubUrl = config.github
 
@@ -109,11 +109,22 @@ DefaultLayout.propTypes = {
 const DefaultLayoutSettingsQuery = props => (
     <StaticQuery
         query={graphql`
-            query GhostSettings {
-                allGhostSettings {
+            query {
+                allContentfulSettings {
                     edges {
                         node {
-                            ...GhostSettingsFields
+                            title
+                            description
+                            url
+                            logo {
+                                file {
+                                    url
+                                }
+                            }
+                            navigation {
+                                url
+                                label
+                            }
                         }
                     }
                 }
