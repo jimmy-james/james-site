@@ -51,11 +51,9 @@ export const postQuery = graphql `
         allContentfulPost {
             edges {
                 node {
-                    childContentfulPostContentRichTextNode {
-                        json
-                    }
                     title
                     slug
+                    excerpt
                     primaryAuthor {
                         name
                     }
@@ -63,8 +61,6 @@ export const postQuery = graphql `
                         id
                         file {
                             url
-                            fileName
-                            contentType
                         }
                     }
                 }
