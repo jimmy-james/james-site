@@ -16,7 +16,7 @@ import documentToReactComponent from '../utils/documentToReactComponents'
             </Helmet>
 */
 const Post = ({ data, location }) => {
-    const post = data.contentfulPost
+    const post = data.contentfulPosts
 
     return (
         <>
@@ -37,7 +37,7 @@ const Post = ({ data, location }) => {
                             <span>{ post.primaryAuthor.name }</span>
                             {/* The main post content */ }
                             <section className="content-body load-external-scripts">
-                                {documentToReactComponent(post.childContentfulPostContentRichTextNode.json)}
+                                {documentToReactComponent(post.childContentfulPostsContentRichTextNode.json)}
                             </section>
                         </section>
                     </article>
@@ -49,7 +49,7 @@ const Post = ({ data, location }) => {
 
 Post.propTypes = {
     data: PropTypes.shape({
-        contentfulPost: PropTypes.shape({
+        contentfulPosts: PropTypes.shape({
             title: PropTypes.string.isRequired,
             featureImage: PropTypes.object,
             primaryAuthor: PropTypes.object,
@@ -62,7 +62,7 @@ export default Post
 
 export const postQuery = graphql`
     query($slug: String!) {
-        contentfulPost(slug: { eq: $slug }) {
+        contentfulPosts(slug: { eq: $slug }) {
             title
             primaryAuthor {
                 name
@@ -72,7 +72,7 @@ export const postQuery = graphql`
                     url
                 }
             }
-            childContentfulPostContentRichTextNode {
+            childContentfulPostsContentRichTextNode {
                 json
             }
         }
